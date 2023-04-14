@@ -4,7 +4,11 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 var app = express();
 var cors = require('cors');
-app.use(cors());
+const corsOptions = {
+    origin: 'http://flirtbot.pages.dev',
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
