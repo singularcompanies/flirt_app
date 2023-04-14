@@ -1,43 +1,33 @@
-require('dotenv').config();
-const express = require('express');
-const stripe = require('stripe')(process.env.STRIPE_KEY);
+import './App.css'
+import React from 'react';
+import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+import { Button } from '@chakra-ui/react';
+const stripPromise = loadStripe(import.meta.env.VITE_STRIPE_KEY)
 
-var app = express();
-var cors = require('cors');
-app.use(cors({
-    origin: 'https://flirtbot.pages.dev'
-}));
-app.use(express.json());
-const PORT = process.env.PORT || 3001;
+function Pay() {
+    const handleCheckout = async (amount) => {
+        const stripe = await stripPromise
+        const response = await axios.post('https://whale-app-8pvd8.ondigitalocean.app/payment', {
+            amount: amount
+        })
+        const session = await response.json()
+        console.log(session)
+        const result = await stripe.redirectToCheckout({
+            sessionId: session.id
+        })
+        if (result.error) {
+            console.log(result.error.message)
+        }
+    }
 
-app.post('/payment', async (req, res) => {
-    res.header("Access-Control-Allow-Origin", "https://flirtbot.pages.dev");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Credentials", "true");
-    const {amount} = req.body;
-    const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-            {
-                price_data: {
-                    currency: 'usd',
-                    unit_amount: amount,
-                    product_data: {
-                        name: 'Doctor Roleplay Character',
-                        description: 'Unlock the ability to chat with AI Based Doctor',
-                    },
-                },
-                quantity: 1,
-            },
-        ],
-        mode: 'payment',
-        success_url: 'http://flirtbot.pages.dev/cmp',
-        cancel_url: 'http://flirtbot.pages.dev/cancel',
-    });
-    res.json({ id: session.id });
-});
+    return (
+        <div className="App">
+            <Button w="28" mt="6" bg="white" onClick={() => handleCheckout(1000)}>
+                Pay $10
+            </Button>
+        </div>
+    )
+}
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+export default Pay
