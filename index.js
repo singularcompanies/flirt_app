@@ -5,7 +5,7 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 var app = express();
 var cors = require('cors');
 const corsOptions = {
-    origin: 'https://flirtbot.pages.dev/app',
+    origin: '*',
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
