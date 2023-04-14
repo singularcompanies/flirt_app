@@ -4,7 +4,9 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 var app = express();
 var cors = require('cors');
-app.use(cors());
+app.use(cors({
+    origin: 'https://flirtbot.pages.dev'
+}));
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
