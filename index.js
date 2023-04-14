@@ -5,7 +5,8 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 var app = express();
 var cors = require('cors');
 app.use(cors({
-    origin: 'https://flirtbot.pages.dev'
+    origin: 'https://flirtbot.pages.dev',
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
