@@ -4,9 +4,7 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 var app = express();
 var cors = require('cors');
-app.use(cors({
-    origin: 'https://flirtbot.pages.dev'
-}));
+app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
@@ -31,7 +29,7 @@ app.post('/payment', async (req, res) => {
         success_url: 'http://flirtbot.pages.dev/cmp',
         cancel_url: 'http://flirtbot.pages.dev/cancel',
     });
-    res.json({ url: session.url });
+    res.json({ id: session.id });
 });
 
 app.listen(PORT, () => {
