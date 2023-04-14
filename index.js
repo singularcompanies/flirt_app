@@ -11,6 +11,10 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 app.post('/payment', async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "https://flirtbot.pages.dev");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
     const {amount} = req.body;
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
