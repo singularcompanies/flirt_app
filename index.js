@@ -8,6 +8,7 @@ app.use(cors({
     origin: 'https://flirtbot.pages.dev'
 }));
 app.use(express.json());
+app.use(express.static('public'));
 const PORT = process.env.PORT || 3001;
 
 app.post('/payment', async (req, res) => {
