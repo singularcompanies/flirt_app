@@ -6,7 +6,7 @@ var app = express();
 var cors = require('cors');
 app.use(cors({
     origin: 'https://flirtbot.pages.dev',
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['content-type'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
