@@ -31,7 +31,7 @@ app.post('/payment', async (req, res) => {
         success_url: 'http://flirtbot.pages.dev/cmp',
         cancel_url: 'http://flirtbot.pages.dev/cancel',
     });
-    res.json({ id: session.id });
+    res.json({ url: session.url });
 });
 
 app.listen(PORT, () => {
