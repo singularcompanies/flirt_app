@@ -22,8 +22,8 @@ app.post('/payment', async (req, res) => {
                     currency: 'usd',
                     unit_amount: amount,
                     product_data: {
-                        name: 'abc',
-                        description: 'abc',
+                        name: 'Doctor Roleplay Character',
+                        description: 'Unlock the ability to chat with AI Based Doctor',
                     },
                 },
                 quantity: 1,
@@ -33,7 +33,7 @@ app.post('/payment', async (req, res) => {
         success_url: 'http://flirtbot.pages.dev/cmp',
         cancel_url: 'http://flirtbot.pages.dev/cancel',
     });
-    res.json({ id: session.id });
+    res.json({ id: session.id })
 });
 
 app.listen(PORT, () => {
