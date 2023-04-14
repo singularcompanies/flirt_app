@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 
-const app = express();
+var app = express();
+var cors = require('cors');
 app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
@@ -26,8 +26,8 @@ app.post('/payment', async (req, res) => {
             },
         ],
         mode: 'payment',
-        success_url: 'https://flirt.pages.dev/cmp',
-        cancel_url: 'https://flirt.pages.dev/cancel',
+        success_url: 'http://flirtbot.pages.dev/cmp',
+        cancel_url: 'http://flirtbot.pages.dev/cancel',
     });
     res.json({ id: session.id });
 });
