@@ -8,7 +8,7 @@ app.use(cors({
     origin: 'https://flirtbot.pages.dev'
 }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3001;
 
 app.post('/payment', async (req, res) => {
@@ -21,8 +21,8 @@ app.post('/payment', async (req, res) => {
                     currency: 'usd',
                     unit_amount: amount,
                     product_data: {
-                        name: 'Doctor Roleplay Character',
-                        description: 'Unlock the ability to chat with AI Based Doctor',
+                        name: 'abc',
+                        description: 'abc',
                     },
                 },
                 quantity: 1,
